@@ -1,0 +1,10 @@
+
+※ "keytool"은 [JDK 설치경로]/bin 폴더에 있음. 
+
+1. 개발자용 디버그 키해시
+keytool -exportcert -alias androiddebugkey -keystore C:\Users\Askai\.android\debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
+
+4QASUaQWtutlqRteZ/kOo/iKo8g=
+
+2. 배포 시, 릴리즈 키해시
+keytool -exportcert -alias [릴리즈 keystore에서 사용할 alias] -keystore [릴리즈 keystore의 경로] -storepass [릴리즈 keystore PW] -keypass [릴리즈 keystore에서 해당 alias의 PW] | openssl sha1 -binary | openssl base64

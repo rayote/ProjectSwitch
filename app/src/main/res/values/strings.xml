@@ -1,0 +1,22 @@
+<resources>
+	<string name="app_name">Project Switch</string>
+
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+
+	<string name="action_settings">Settings</string>
+	<string name="action_kakao_logout">카카오계정 로그아웃</string>
+
+	<string name="text_move_to_next_on_splash_page">화면을 터치하면 바로 시작합니다.</string>
+
+	<!-- For "Kakao Login" -->
+	<string name="kakao_app_key">3b3c4db212f6bee4633ceb157b60c2f5</string>
+	<string name="error_message_for_service_unavailable">서비스 연결상태가 좋지 않습니다.\n\n잠시 후 다시 시도해 주세요.</string>
+	<string name="text_for_login_kakao_account">Log in with Kakao</string>
+	<string name="cancel">취소</string>
+	<string name="ok">확인</string>
+
+	<string name="title_activity_friend_list">FriendListActivity</string>
+	<string name="dummy_button">Dummy Button</string>
+	<string name="dummy_content">DUMMY\nCONTENT</string>
+</resources>
