@@ -1,5 +1,5 @@
 
-package com.kakao.sdk.sample.common.log;
+package com.kakao.sdk.common.log;
 
 import android.util.Log;
 

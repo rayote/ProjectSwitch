@@ -1,9 +1,9 @@
-package com.kakao.sdk.sample.common;
+package com.kakao.sdk.common;
 
 import android.app.Activity;
 import android.content.Intent;
 
-import com.kakao.sdk.sample.common.widget.WaitingDialog;
+import com.kakao.sdk.common.widget.WaitingDialog;
 
 /**
  * @author leoshin, created at 15. 7. 20..

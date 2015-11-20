@@ -1,4 +1,4 @@
-package com.kakao.sdk.sample.common.widget;
+package com.kakao.sdk.common.widget;
 
 import android.content.Context;
 import android.view.Gravity;

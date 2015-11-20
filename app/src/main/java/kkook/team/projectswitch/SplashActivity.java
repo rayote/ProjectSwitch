@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import com.kakao.sdk.sample.common.KakaoLoginActivity;
+import com.kakao.sdk.common.KakaoLoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

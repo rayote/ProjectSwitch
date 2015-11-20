@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.kakao.sdk.sample.common;
+package com.kakao.sdk.common;
 
 import android.app.Activity;
 import android.app.Application;
@@ -26,7 +26,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.kakao.auth.KakaoSDK;
-import com.kakao.sdk.sample.common.log.Logger;
+import com.kakao.sdk.common.log.Logger;
 
 /**
  * 이미지를 캐시를 앱 수준에서 관리하기 위한 애플리케이션 객체이다.

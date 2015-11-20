@@ -1,4 +1,4 @@
-package com.kakao.sdk.sample.common;
+package com.kakao.sdk.common;
 
 import android.app.Activity;
 import android.content.Context;

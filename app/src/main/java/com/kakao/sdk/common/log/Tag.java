@@ -1,4 +1,4 @@
-package com.kakao.sdk.sample.common.log;
+package com.kakao.sdk.common.log;
 
 /**
  * Created by leoshin on 15. 4. 6..

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,21 +17,35 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kakao.auth.ErrorResult;
-import com.kakao.sdk.sample.common.KakaoLoginActivity;
+import com.kakao.sdk.common.KakaoLoginActivity;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
-import org.w3c.dom.Text;
-
 public class FriendListActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
 
 	UserProfile userProfile;
+
+	/**
+	 * The {@link android.support.v4.view.PagerAdapter} that will provide
+	 * fragments for each of the sections. We use a
+	 * {@link FragmentPagerAdapter} derivative, which will keep every
+	 * loaded fragment in memory. If this becomes too memory intensive, it
+	 * may be best to switch to a
+	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
+	 */
+	private SectionsPagerAdapter mSectionsPagerAdapter;
+
+	/**
+	 * The {@link ViewPager} that will host the section contents.
+	 */
+	private ViewPager mViewPager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +72,6 @@ public class FriendListActivity extends AppCompatActivity
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
-
-		// TODO
-		final TextView tvHello = ((TextView) findViewById(R.id.tvHello));
-		tvHello.setText(String.format("Selected minutes before expired= %d",	getIntent().getIntExtra("selectedMin", -1)));
-
 		UserManagement.requestMe(new MeResponseCallback() {
 			@Override
 			public void onFailure(ErrorResult errorResult) {
@@ -77,8 +89,10 @@ public class FriendListActivity extends AppCompatActivity
 			@Override
 			public void onSuccess(UserProfile userProfile) {
 				Logger.d("UserProfile : " + userProfile);
-				tvHello.append(String.format("\n\n[Kakao UserProfile]\nid= %d,\nnickname= %s,\nprofileImage= %s",
-						userProfile.getId(), userProfile.getNickname(), userProfile.getProfileImagePath()));
+				String msg = String.format("Selected minutes before expired= %d",	getIntent().getIntExtra("selectedMin", -1));
+				msg += String.format("\n\n[Kakao UserProfile]\nid= %d,\nnickname= %s,\nprofileImage= %s",
+						userProfile.getId(), userProfile.getNickname(), userProfile.getProfileImagePath());
+				Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -86,6 +100,17 @@ public class FriendListActivity extends AppCompatActivity
 //				showSignup();
 			}
 		});
+
+		// Create the adapter that will return a fragment for each of the three
+		// primary sections of the activity.
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
+		// Set up the ViewPager with the sections adapter.
+		mViewPager = (ViewPager) findViewById(R.id.container);
+		mViewPager.setAdapter(mSectionsPagerAdapter);
+
+		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+		tabLayout.setupWithViewPager(mViewPager);
 	}
 
 	@Override
@@ -112,19 +137,24 @@ public class FriendListActivity extends AppCompatActivity
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings) {
-			return true;
-		} else if (id == R.id.action_kakao_logout) {
-			UserManagement.requestLogout(new LogoutResponseCallback() {
-				@Override
-				public void onCompleteLogout() {
+		Intent i;
+		switch (id) {
+			case  R.id.action_settings:
+				i = new Intent(getApplicationContext(), SettingActivity.class);
+				startActivity(i);
+				return true;
+
+			case R.id.action_kakao_logout:
+				UserManagement.requestLogout(new LogoutResponseCallback() {
+					@Override
+					public void onCompleteLogout() {
 //					redirectLoginActivity();
-					final Intent intent = new Intent(getApplicationContext(), KakaoLoginActivity.class);
-					startActivity(intent);
-					finish();
-				}
-			});
+						final Intent intent = new Intent(getApplicationContext(), KakaoLoginActivity.class);
+						startActivity(intent);
+						finish();
+					}
+				});
+				break;
 		}
 
 		return super.onOptionsItemSelected(item);
@@ -136,18 +166,26 @@ public class FriendListActivity extends AppCompatActivity
 		// Handle navigation view item clicks here.
 		int id = item.getItemId();
 
-		if (id == R.id.nav_camara) {
-			// Handle the camera action
-		} else if (id == R.id.nav_gallery) {
+		switch (id) {
+			case R.id.nav_manage_friend:
+				Intent i = new Intent(getApplicationContext(), ManageFriendActivity.class);
+				startActivity(i);
+				break;
 
-		} else if (id == R.id.nav_slideshow) {
+			case R.id.nav_gallery:
+				break;
 
-		} else if (id == R.id.nav_manage) {
+			case R.id.nav_slideshow:
+				break;
 
-		} else if (id == R.id.nav_share) {
+			case R.id.nav_manage:
+				break;
 
-		} else if (id == R.id.nav_send) {
+			case R.id.nav_share:
+				break;
 
+			case R.id.nav_send:
+				break;
 		}
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

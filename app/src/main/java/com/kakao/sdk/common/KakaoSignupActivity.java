@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.kakao.sdk.sample.common;
+package com.kakao.sdk.common;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -27,13 +27,14 @@ import android.widget.Toast;
 
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ErrorResult;
-import com.kakao.sdk.sample.common.log.Logger;
-import com.kakao.sdk.sample.common.widget.DialogBuilder;
-import com.kakao.sdk.sample.common.widget.KakaoToast;
+import com.kakao.sdk.common.log.Logger;
+import com.kakao.sdk.common.widget.DialogBuilder;
+import com.kakao.sdk.common.widget.KakaoToast;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 
+import kkook.team.projectswitch.AddFriendActivity;
 import kkook.team.projectswitch.MainActivity;
 import kkook.team.projectswitch.R;
 
@@ -114,7 +115,7 @@ public class KakaoSignupActivity extends BaseActivity {
     }
 
     private void redirectMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, AddFriendActivity.class));
         finish();
     }
 }
