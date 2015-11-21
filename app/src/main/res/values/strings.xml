@@ -4,6 +4,9 @@
 	<string name="navigation_drawer_open">Open navigation drawer</string>
 	<string name="navigation_drawer_close">Close navigation drawer</string>
 
+	<string name="gcm_defaultSenderId">1003688072011</string>
+	<string name="gcm_serverAPIKey">AIzaSyASC7EHex6NOzuDsDkQza-oRW9M9hcDk_o</string>
+
 	<string name="action_settings">설정</string>
 	<string name="action_kakao_logout">카카오계정 로그아웃</string>
 	<string name="action_manage_group">그룹 관리</string>

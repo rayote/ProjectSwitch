@@ -40,4 +40,9 @@ dependencies {
     compile group: 'com.kakao.sdk', name: 'kakaotalk', version: project.KAKAO_SDK_VERSION
     // push sdk를 사용하기 위해 필요.
     //compile group: 'com.kakao.sdk', name: 'push', version: project.KAKAO_SDK_VERSION
+
+    // GCM
+    compile "com.google.android.gms:play-services:8.3.0"
+    // IOUtils
+    compile "commons-io:commons-io:+"
 }

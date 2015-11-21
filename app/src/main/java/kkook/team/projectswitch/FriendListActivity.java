@@ -27,6 +27,8 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
+import kkook.team.projectswitch.gcm.TestActivity;
+
 public class FriendListActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -154,6 +156,11 @@ public class FriendListActivity extends AppCompatActivity
 						finish();
 					}
 				});
+				break;
+
+			case R.id.action_test_gcm:
+				i = new Intent(getApplicationContext(), TestActivity.class);
+				startActivity(i);
 				break;
 		}
 
