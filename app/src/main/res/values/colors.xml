@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">@color/gray</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">@color/yellow</color>
+
+    <color name="yellow">#efff00</color>
+    <color name="green">#88ea7e</color>
+    <color name="blue">#26bacc</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#353535</color>
+    <color name="lightgray">#E5E5E5</color>
 
     <!-- For "Kakao Login" -->
     <color name="color1">#404040</color>

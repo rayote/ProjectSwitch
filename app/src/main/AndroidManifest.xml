@@ -3,6 +3,13 @@
     package="kkook.team.projectswitch" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.SEND" />
+
+    <permission android:name="kkook.team.projectswitch.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="kkook.team.projectswitch.permission.C2D_MESSAGE" />
+
 
     <application
         android:name="com.kakao.sdk.common.GlobalApplication"
@@ -14,6 +21,31 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="kkook.team.projectswitch" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="kkook.team.projectswitch.gcm.MyGcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="kkook.team.projectswitch.gcm.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+        <service android:name=".gcm.RegistrationIntentService" />
 
         <activity
             android:name=".FriendListActivity"
@@ -52,6 +84,9 @@
         <activity android:name=".SettingActivity"
             android:parentActivityName=".FriendListActivity">
         </activity>
+
+
+        <activity android:name=".gcm.TestActivity" />
     </application>
 
 </manifest>

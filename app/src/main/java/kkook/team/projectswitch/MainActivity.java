@@ -15,6 +15,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 	RelativeLayout relativeLayout;
 	ImageView imgBtnSwitch;
+	TextView textUp;
+	TextView textDown;
+	TextView textLeft;
+	TextView textRight;
 	ArrayList<ImageView> alImgBtnSideSwitch;
 	float deltaX = 0, deltaY = 0;
 	private enum DIRECTION {
@@ -36,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		textUp = (TextView) findViewById(R.id.tvBtnSideTop);
+		textUp.setTextColor(getResources().getColor(R.color.gray));
+		textDown = (TextView) findViewById(R.id.tvBtnSideBottom);
+		textDown.setTextColor(getResources().getColor(R.color.gray));
+		textLeft = (TextView) findViewById(R.id.tvBtnSideLeft);
+		textLeft.setTextColor(getResources().getColor(R.color.gray));
+		textRight = (TextView) findViewById(R.id.tvBtnSideRight);
+		textRight.setTextColor(getResources().getColor(R.color.gray));
+
 		relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 		imgBtnSwitch = (ImageView) findViewById(R.id.imgBtnSwitch);
 		imgBtnSwitch.setOnTouchListener(new View.OnTouchListener() {
@@ -46,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 				RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) v.getLayoutParams();
 				switch (event.getAction()) {
 					case MotionEvent.ACTION_DOWN:
-						((ImageView) v).setImageResource(R.drawable.ic_switch_on);
+						((ImageView) v).setImageResource(R.drawable.switch_on);
 						int initLeftMargin = (relativeLayout.getWidth() - v.getWidth()) / 2;
 						int initTopMargin = (relativeLayout.getHeight() - v.getHeight()) / 2;
 						layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, 0);
@@ -54,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 						deltaY = Y - initTopMargin;
 						break;
 					case MotionEvent.ACTION_UP:
-						((ImageView) v).setImageResource(R.drawable.ic_switch_off);
+						((ImageView) v).setImageResource(R.drawable.switch_off);
 						layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 						v.setLayoutParams(layoutParams);
 
@@ -65,9 +78,10 @@ public class MainActivity extends AppCompatActivity {
 						break;
 					case MotionEvent.ACTION_MOVE:
 						// Drag the center switch only within the gray area
-						final int maxMove = 200;
+						final int maxMove = 150;
 						final int centerPosX = relativeLayout.getWidth() / 2;
 						final int centerPosY = relativeLayout.getHeight() / 2;
+
 						final double dist = Math.sqrt(Math.pow(X - centerPosX, 2) + Math.pow(Y - centerPosY, 2));
 						final double angleX = Math.acos((double) (X - centerPosX) / dist);
 						final double angleY = Math.asin((double) (Y - centerPosY) / dist);
@@ -88,25 +102,33 @@ public class MainActivity extends AppCompatActivity {
 						final int minMove = 120;
 						if(dist > minMove) {
 							if (angleX >= 0.8 && angleX < 2.4 && angleY < -0.8) {
-								alImgBtnSideSwitch.get(DIRECTION.TOP.value()).setImageResource(R.drawable.side_switch_top_on);
+								//alImgBtnSideSwitch.get(DIRECTION.TOP.value()).setImageResource(R.drawable.side_switch_top_on);
+								textUp.setTextColor(getResources().getColor(R.color.yellow));
 								selectedMin = 15;
 							} else
-								alImgBtnSideSwitch.get(DIRECTION.TOP.value()).setImageResource(R.drawable.side_switch_top_off);
+								textUp.setTextColor(getResources().getColor(R.color.black));
+							//alImgBtnSideSwitch.get(DIRECTION.TOP.value()).setImageResource(R.drawable.side_switch_top_off);
 							if (angleX < 0.8 && angleY >= -0.8 && angleY < 0.8) {
-								alImgBtnSideSwitch.get(DIRECTION.RIGHT.value()).setImageResource(R.drawable.side_switch_right_on);
+								textRight.setTextColor(getResources().getColor(R.color.yellow));
+								//alImgBtnSideSwitch.get(DIRECTION.RIGHT.value()).setImageResource(R.drawable.side_switch_right_on);
 								selectedMin = 30;
 							} else
-								alImgBtnSideSwitch.get(DIRECTION.RIGHT.value()).setImageResource(R.drawable.side_switch_right_off);
+								textRight.setTextColor(getResources().getColor(R.color.black));
+							//alImgBtnSideSwitch.get(DIRECTION.RIGHT.value()).setImageResource(R.drawable.side_switch_right_off);
 							if (angleX >= 0.8 && angleX < 2.4 && angleY >= 0.8) {
-								alImgBtnSideSwitch.get(DIRECTION.BOTTOM.value()).setImageResource(R.drawable.side_switch_bottom_on);
+								textDown.setTextColor(getResources().getColor(R.color.yellow));
+								//alImgBtnSideSwitch.get(DIRECTION.BOTTOM.value()).setImageResource(R.drawable.side_switch_bottom_on);
 								selectedMin = 45;
 							} else
-								alImgBtnSideSwitch.get(DIRECTION.BOTTOM.value()).setImageResource(R.drawable.side_switch_bottom_off);
+								textDown.setTextColor(getResources().getColor(R.color.black));
+							//alImgBtnSideSwitch.get(DIRECTION.BOTTOM.value()).setImageResource(R.drawable.side_switch_bottom_off);
 							if (angleX >= 2.4 && angleY >= -0.8 && angleY < 0.8) {
-								alImgBtnSideSwitch.get(DIRECTION.LEFT.value()).setImageResource(R.drawable.side_switch_left_on);
+								textLeft.setTextColor(getResources().getColor(R.color.yellow));
+								//alImgBtnSideSwitch.get(DIRECTION.LEFT.value()).setImageResource(R.drawable.side_switch_left_on);
 								selectedMin = 60;
 							}else
-								alImgBtnSideSwitch.get(DIRECTION.LEFT.value()).setImageResource(R.drawable.side_switch_left_off);
+								textLeft.setTextColor(getResources().getColor(R.color.black));
+							//alImgBtnSideSwitch.get(DIRECTION.LEFT.value()).setImageResource(R.drawable.side_switch_left_off);
 						}
 						break;
 				}

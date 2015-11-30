@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ManageFriendActivity extends AppCompatActivity {
@@ -36,22 +37,46 @@ public class ManageFriendActivity extends AppCompatActivity {
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	private ViewPager mViewPager;
+	private  TextView textView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_manage_friend);
 
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_friend);
 		setSupportActionBar(toolbar);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
 		mManageSectionsPagerAdapter = new ManageSectionsPagerAdapter(getSupportFragmentManager());
 
+		textView = (TextView)findViewById(R.id.toolbar_friend_tv);
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.container);
 		mViewPager.setAdapter(mManageSectionsPagerAdapter);
 
+		mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int state) {
+				if (state == 0)
+					textView.setText("친구목록");
+				else if (state == 1)
+					textView.setText("차단목록");
+
+			}
+
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int position) {
+
+				//textView.setText("Postion : "+position);
+			}
+		});
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(mViewPager);
 
@@ -63,7 +88,7 @@ public class ManageFriendActivity extends AppCompatActivity {
 						.setAction("Action", null).show();
 			}
 		});
-
+		//textView.setText("친구목록 관리");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setTitle("친구목록 관리");
 	}
@@ -141,6 +166,31 @@ public class ManageFriendActivity extends AppCompatActivity {
 		 * The fragment argument representing the section number for this
 		 * fragment.
 		 */
+		private ListView userListPage;
+		private ListItemAdapter adapterManage;
+		private TextView tv;
+		@Override public void onActivityCreated(Bundle savedInstanceState) {
+			super.onActivityCreated(savedInstanceState);
+
+			Item u1 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "김씨", "010-1234-5678");
+			Item u2 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "이씨", "010-8765-4321");
+			Item u3 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "박씨", "010-0000-0000");
+
+			adapterManage = new ListItemAdapter(getActivity());
+			// 리스트뷰 참조 및 Adapter달기
+			userListPage = (ListView) getActivity().findViewById(R.id.listViewPage2);
+			userListPage.setAdapter(adapterManage);
+
+			// Data 추가
+			adapterManage.add(u1);
+
+			adapterManage.add(u2);
+
+			adapterManage.add(u3);
+
+			// Data가 변경 되있음을 알려준다.
+			adapterManage.notifyDataSetChanged();
+		}
 		private static final String ARG_SECTION_NUMBER = "section_number";
 
 		/**
@@ -152,6 +202,7 @@ public class ManageFriendActivity extends AppCompatActivity {
 			Bundle args = new Bundle();
 			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
 			fragment.setArguments(args);
+
 			return fragment;
 		}
 
@@ -162,8 +213,8 @@ public class ManageFriendActivity extends AppCompatActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_manage_friend, container, false);
-			TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-			textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+			//tv = (TextView) rootView.findViewById(R.id.toolbar_friend_tv);
+			//tv.setText("친구관리");
 			return rootView;
 		}
 	}

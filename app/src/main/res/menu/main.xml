@@ -3,13 +3,18 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	tools:context=".MainActivity">
 	<item
+		android:id="@+id/action_test_gcm"
+		android:orderInCategory="100"
+		android:title="[테스트] GCM 액티비티"
+		app:showAsAction="never" />
+	<item
 		android:id="@+id/action_settings"
 		android:orderInCategory="100"
 		android:title="@string/action_settings"
 		app:showAsAction="never" />
 	<item
 		android:id="@+id/action_kakao_logout"
-		android:orderInCategory="100"
+		android:orderInCategory="101"
 		android:title="@string/action_kakao_logout"
 		app:showAsAction="never" />
 </menu>
