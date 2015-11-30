@@ -22,7 +22,8 @@ public class SplashActivity extends AppCompatActivity {
 		findViewById(R.id.imgProjectSwitchIcon).postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				startActivity(new Intent(SplashActivity.this, KakaoLoginActivity.class));
+				//startActivity(new Intent(SplashActivity.this, KakaoLoginActivity.class));
+				startActivity(new Intent(SplashActivity.this, AddFriendActivity.class));
 				finish();
 			}
 		}, 2000);

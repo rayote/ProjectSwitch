@@ -1,6 +1,8 @@
 package kkook.team.projectswitch;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +18,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +30,13 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
+
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.SimpleTimeZone;
 
 import kkook.team.projectswitch.gcm.TestActivity;
 
@@ -48,24 +59,45 @@ public class FriendListActivity extends AppCompatActivity
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	private ViewPager mViewPager;
+	private ListView userList;
+	private ListItemAdapter adapter;
+
+	private TextView textView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_friend_list);
+
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+	/*	FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
 			}
-		});
+		});*/
+		ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBarTime);
+		progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
+
+		int maxTime = 15*60;
+		int remainTime = 12*60;
+
+		TextView tv = (TextView)findViewById(R.id.tvTime);
+		TextView tv_maxtime = (TextView)findViewById(R.id.maxTime);
+		if(remainTime%60 > 10)
+			tv.setText(remainTime/60+":"+remainTime%60+":00");
+		else
+			tv.setText(remainTime/60+":0"+remainTime%60+":00");
+		tv_maxtime.setText(maxTime/60+"min.");
+
+		progressBar.setMax(maxTime);
+		progressBar.setProgress(remainTime);
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
 		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
 				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		drawer.setDrawerListener(toggle);
@@ -73,6 +105,25 @@ public class FriendListActivity extends AppCompatActivity
 
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
+
+		// FIXME: 더미 데이터
+		Item u1 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "김씨", "010-1234-5678");
+		Item u2 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "이씨", "010-8765-4321");
+		Item u3 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "박씨", "010-0000-0000");
+
+
+		adapter = new ListItemAdapter(getApplicationContext());
+		// 리스트뷰 참조 및 Adapter달기
+		userList = (ListView) findViewById(R.id.listViewNavi);
+		userList.setAdapter(adapter);
+
+		// Data 추가
+		adapter.add(u1);
+		adapter.add(u2);
+		adapter.add(u3);
+
+		// Data가 변경 되있음을 알려준다.
+		adapter.notifyDataSetChanged();
 
 		UserManagement.requestMe(new MeResponseCallback() {
 			@Override
@@ -107,12 +158,38 @@ public class FriendListActivity extends AppCompatActivity
 		// primary sections of the activity.
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+		textView = (TextView) findViewById(R.id.toolbar_app_tv);
+
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.container);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int state) {
+				if(state==0)
+					textView.setText("SWITCH ON!");
+				else if(state==1)
+					textView.setText("Interaction Info");
+
+			}
+
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int position) {
+
+				//textView.setText("Postion : "+position);
+			}
+		});
+
 
 		TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(mViewPager);
+
 	}
 
 	@Override
