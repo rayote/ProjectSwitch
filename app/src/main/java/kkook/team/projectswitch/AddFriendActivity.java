@@ -12,11 +12,18 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class AddFriendActivity extends AppCompatActivity {
 
 	private ListView userList;
 	private ListItemAdapter adapter;
 	private Button btn;
+
+	private ArrayList<Item> generalFriend;
+	private ArrayList<Item> addedFriend;
+	private ArrayList<Item> blockedFriend;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,10 +34,14 @@ public class AddFriendActivity extends AppCompatActivity {
 
 		btn = (Button)findViewById(R.id.btnSkip);
 		btn.setText("다음에 하기");
+
 		btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getApplicationContext(), MainActivity.class);
+				i.putParcelableArrayListExtra("general", generalFriend);
+				i.putParcelableArrayListExtra("added", addedFriend);
+				i.putParcelableArrayListExtra("blocked", blockedFriend);
 				startActivity(i);
 				finish();
 			}
@@ -60,20 +71,27 @@ public class AddFriendActivity extends AppCompatActivity {
 				finish();
 			}
 		});
-		adapter = new ListItemAdapter(getApplicationContext());
+
+		// Data 추가
+		Item u1 = new Item(getResources().getDrawable(R.drawable.demo_profile_01), "성덕선", "subtext");
+		Item u2 = new Item(getResources().getDrawable(R.drawable.demo_profile_02), "성보라", "subtext");
+		Item u3 = new Item(getResources().getDrawable(R.drawable.demo_profile_03), "김정팔", "subtext");
+
+		generalFriend = new ArrayList<Item>();
+		addedFriend = new ArrayList<Item>();
+		blockedFriend = new ArrayList<Item>();
+
+
+		generalFriend.add(u1);
+		generalFriend.add(u2);
+		generalFriend.add(u3);
+
+		adapter = new ListItemAdapter(getApplicationContext(), Definition.ADDFRIEND);
 		// 리스트뷰 참조 및 Adapter달기
 		userList = (ListView) findViewById(R.id.listView);
 		userList.setAdapter(adapter);
-		// Data 추가
-		Item u1 = new Item(getResources().getDrawable(R.drawable.demo_profile_01), "성덕선", "010-1234-5678");
-		adapter.add(u1);
 
-		Item u2 = new Item(getResources().getDrawable(R.drawable.demo_profile_02), "성보라", "010-8765-4321");
-		adapter.add(u2);
-
-		Item u3 = new Item(getResources().getDrawable(R.drawable.demo_profile_03), "김정팔", "010-0000-0000");
-		adapter.add(u3);
-
+		adapter.addArray(generalFriend);
 
 		// Data가 변경 되있음을 알려준다.
 		adapter.notifyDataSetChanged();
@@ -81,7 +99,26 @@ public class AddFriendActivity extends AppCompatActivity {
 		userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView parent, View view,
 									int position, long id) {
-				btn.setText("clicked");
+				Item item= adapter.getItem(position);
+
+				if(item.getDataType() == Definition.UNSELETED)
+				{
+					view.setBackground(getResources().getDrawable(R.drawable.oval_frame_yellow));
+					adapter.setSeletedItemNum(1);
+					addedFriend.add(item);
+					generalFriend.remove(item);
+					item.setDataType(Definition.SELETED);
+				}
+				else if(item.getDataType() == Definition.SELETED)
+				{
+					view.setBackground(getResources().getDrawable(R.drawable.oval_frame));
+					adapter.setSeletedItemNum(-1);
+					item.setDataType(Definition.UNSELETED);
+					addedFriend.remove(item);
+					generalFriend.add(item);
+				}
+
+
 				if (adapter.getnSelectedItemNum() != 0)
 					btn.setText("확인");
 				else
@@ -92,4 +129,3 @@ public class AddFriendActivity extends AppCompatActivity {
 
 	}
 }
-

@@ -10,10 +10,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 	RelativeLayout relativeLayout;
+
+
+	private ArrayList<Item> generalFriend;
+	private ArrayList<Item> addedFriend;
+	private ArrayList<Item> blockedFriend;
+
 	ImageView imgBtnSwitch;
 	TextView textUp;
 	TextView textDown;
@@ -39,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+/*		generalFriend = new ArrayList<Item>();
+		addedFriend = new ArrayList<Item>();
+		blockedFriend = new ArrayList<Item>();
+*/
+		generalFriend =  getIntent().getParcelableArrayListExtra("general");
+		addedFriend =  getIntent().getParcelableArrayListExtra("added");
+		blockedFriend =  getIntent().getParcelableArrayListExtra("blocked");
+
+
 
 		textUp = (TextView) findViewById(R.id.tvBtnSideTop);
 		textUp.setTextColor(getResources().getColor(R.color.gray));
@@ -73,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
 						Intent i = new Intent(getApplicationContext(), FriendListActivity.class);
 						i.putExtra("selectedMin", selectedMin);
+						i.putParcelableArrayListExtra("general", generalFriend);
+						i.putParcelableArrayListExtra("added", addedFriend);
+						i.putParcelableArrayListExtra("blocked", blockedFriend);
+						//if(generalFriend != null)
 						startActivity(i);
 						finish();
 						break;
