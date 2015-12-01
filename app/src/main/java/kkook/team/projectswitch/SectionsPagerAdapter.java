@@ -3,12 +3,17 @@ package kkook.team.projectswitch;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
  * one of the sections/tabs/pages.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+	private LayoutInflater mInflater;
 
 	public SectionsPagerAdapter(FragmentManager fm) {
 		super(fm);

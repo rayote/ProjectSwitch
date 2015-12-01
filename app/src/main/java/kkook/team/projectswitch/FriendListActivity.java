@@ -35,6 +35,7 @@ import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.SimpleTimeZone;
 
@@ -64,13 +65,29 @@ public class FriendListActivity extends AppCompatActivity
 
 	private TextView textView;
 
+	private ArrayList<Item> generalFriend;
+	private ArrayList<Item> addedFriend;
+	private ArrayList<Item> blockedFriend;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_friend_list);
 
+		generalFriend = new ArrayList<Item>();
+		addedFriend = new ArrayList<Item>();
+		blockedFriend = new ArrayList<Item>();
+
+		generalFriend =  getIntent().getParcelableArrayListExtra("general");
+		addedFriend =  getIntent().getParcelableArrayListExtra("added");
+		blockedFriend =  getIntent().getParcelableArrayListExtra("blocked");
+
+		int selectedMin= (int) getIntent().getSerializableExtra("selectedMin");
+
+
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
+
 	/*	FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -82,7 +99,7 @@ public class FriendListActivity extends AppCompatActivity
 		ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBarTime);
 		progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
 
-		int maxTime = 15*60;
+		int maxTime = selectedMin*60;
 		int remainTime = 12*60;
 
 		TextView tv = (TextView)findViewById(R.id.tvTime);
@@ -106,21 +123,17 @@ public class FriendListActivity extends AppCompatActivity
 		NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
 
-		// FIXME: 더미 데이터
-		Item u1 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "김씨", "010-1234-5678");
-		Item u2 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "이씨", "010-8765-4321");
-		Item u3 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "박씨", "010-0000-0000");
 
-
-		adapter = new ListItemAdapter(getApplicationContext());
+		adapter = new ListItemAdapter(getApplicationContext(),Definition.ADDFRIENDNAVI);
 		// 리스트뷰 참조 및 Adapter달기
 		userList = (ListView) findViewById(R.id.listViewNavi);
 		userList.setAdapter(adapter);
 
-		// Data 추가
+		if(generalFriend != null)
+		adapter.addArray(generalFriend);
+
+		Item u1 = new Item(getResources().getDrawable(R.drawable.demo_profile_01), "성덕선", "subtext");
 		adapter.add(u1);
-		adapter.add(u2);
-		adapter.add(u3);
 
 		// Data가 변경 되있음을 알려준다.
 		adapter.notifyDataSetChanged();

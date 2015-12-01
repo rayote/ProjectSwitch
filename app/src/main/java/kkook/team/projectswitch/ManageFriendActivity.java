@@ -31,7 +31,7 @@ public class ManageFriendActivity extends AppCompatActivity {
 	 * may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	private ManageSectionsPagerAdapter mManageSectionsPagerAdapter;
+	private SectionsPagerAdapter mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
@@ -48,12 +48,12 @@ public class ManageFriendActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
-		mManageSectionsPagerAdapter = new ManageSectionsPagerAdapter(getSupportFragmentManager());
+		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
 		textView = (TextView)findViewById(R.id.toolbar_friend_tv);
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.container);
-		mViewPager.setAdapter(mManageSectionsPagerAdapter);
+		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
@@ -65,6 +65,23 @@ public class ManageFriendActivity extends AppCompatActivity {
 					textView.setText("차단목록");
 
 			}
+		/*mManageSectionsPagerAdapter = new ManageSectionsPagerAdapter(getSupportFragmentManager());
+
+			textView = (TextView)findViewById(R.id.toolbar_friend_tv);
+			// Set up the ViewPager with the sections adapter.
+			mViewPager = (ViewPager) findViewById(R.id.container);
+			mViewPager.setAdapter(mManageSectionsPagerAdapter);
+
+			mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+				@Override
+				public void onPageSelected(int state) {
+					if (state == 0)
+						textView.setText("친구목록");
+					else if (state == 1)
+						textView.setText("차단목록");
+
+				}*/
 
 			@Override
 			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -168,29 +185,7 @@ public class ManageFriendActivity extends AppCompatActivity {
 		 */
 		private ListView userListPage;
 		private ListItemAdapter adapterManage;
-		private TextView tv;
-		@Override public void onActivityCreated(Bundle savedInstanceState) {
-			super.onActivityCreated(savedInstanceState);
 
-			Item u1 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "김씨", "010-1234-5678");
-			Item u2 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "이씨", "010-8765-4321");
-			Item u3 = new Item(getResources().getDrawable(R.drawable.ic_switch_on), "박씨", "010-0000-0000");
-
-			adapterManage = new ListItemAdapter(getActivity());
-			// 리스트뷰 참조 및 Adapter달기
-			userListPage = (ListView) getActivity().findViewById(R.id.listViewPage2);
-			userListPage.setAdapter(adapterManage);
-
-			// Data 추가
-			adapterManage.add(u1);
-
-			adapterManage.add(u2);
-
-			adapterManage.add(u3);
-
-			// Data가 변경 되있음을 알려준다.
-			adapterManage.notifyDataSetChanged();
-		}
 		private static final String ARG_SECTION_NUMBER = "section_number";
 
 		/**
@@ -212,7 +207,7 @@ public class ManageFriendActivity extends AppCompatActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 								 Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_manage_friend, container, false);
+			View rootView = inflater.inflate(R.layout.fragment_main1, container, false);
 			//tv = (TextView) rootView.findViewById(R.id.toolbar_friend_tv);
 			//tv.setText("친구관리");
 			return rootView;

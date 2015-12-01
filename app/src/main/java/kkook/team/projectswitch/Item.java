@@ -2,14 +2,16 @@ package kkook.team.projectswitch;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 
-public class Item {
+public class Item implements Parcelable{
+
     private Drawable mUserIcon;
     private String mUserName;
     private String mUserSubtext;
     private int mDataType;
-    private View mView;
 
     Item(Drawable userIcon, String userName, String usersubtext){
         mUserIcon = userIcon;
@@ -23,6 +25,19 @@ public class Item {
         mUserName = userName;
         mUserSubtext = userSubtext;
     }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
+
     public Drawable getUserIcon() {
         return mUserIcon;
     }
@@ -55,12 +70,33 @@ public class Item {
         mDataType=datatype;
         return;
     }
-    public View getView()
+    public Item(Parcel src)
     {
-        return mView;
+        // Deserialize Parcelable and cast to Bitmap first:
+        Bitmap bitmap = (Bitmap)src.readParcelable(getClass().getClassLoader());
+        mUserName=src.readString();
+        mUserSubtext=src.readString();
+        mDataType=src.readInt();
+
+        // Convert Bitmap to Drawable:
+        mUserIcon = new BitmapDrawable(bitmap);
     }
-    public void setView(View view)
-    {
-        mView =view;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        // Convert Drawable to Bitmap first:
+        Bitmap bitmap = (Bitmap)((BitmapDrawable) mUserIcon).getBitmap();
+
+        // Serialize bitmap as Parcelable:
+        dest.writeParcelable(bitmap, flags);
+        dest.writeString(mUserName);
+        dest.writeString(mUserSubtext);
+        dest.writeInt(mDataType);
     }
 }
