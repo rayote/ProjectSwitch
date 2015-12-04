@@ -29,7 +29,7 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 
-import kkook.team.projectswitch.MainActivity;
+import kkook.team.projectswitch.view.MainActivity;
 import kkook.team.projectswitch.R;
 
 public class MyGcmListenerService extends GcmListenerService {

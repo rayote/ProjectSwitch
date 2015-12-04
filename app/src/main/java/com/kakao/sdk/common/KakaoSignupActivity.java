@@ -34,8 +34,7 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 
-import kkook.team.projectswitch.AddFriendActivity;
-import kkook.team.projectswitch.MainActivity;
+import kkook.team.projectswitch.view.AddFriendActivity;
 import kkook.team.projectswitch.R;
 
 /**

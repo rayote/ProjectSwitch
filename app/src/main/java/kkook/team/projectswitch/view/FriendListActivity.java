@@ -1,15 +1,17 @@
-package kkook.team.projectswitch;
+package kkook.team.projectswitch.view;
 
 import android.content.Intent;
-import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,8 +20,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,15 +35,24 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.helper.log.Logger;
 
-import java.text.FieldPosition;
-import java.text.Format;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.SimpleTimeZone;
+import org.w3c.dom.Text;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+
+import kkook.team.projectswitch.common.Definition;
+import kkook.team.projectswitch.common.FriendItem;
+import kkook.team.projectswitch.common.RoundedAvatarDrawable;
+import kkook.team.projectswitch.util.ListItemAdapter;
+import kkook.team.projectswitch.R;
+import kkook.team.projectswitch.util.SectionsPagerAdapter;
 import kkook.team.projectswitch.gcm.TestActivity;
+import kkook.team.projectswitch.util.SessionTimer;
+import kkook.team.projectswitch.util.Utils;
 
 public class FriendListActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,24 +78,48 @@ public class FriendListActivity extends AppCompatActivity
 
 	private TextView textView;
 
-	private ArrayList<Item> generalFriend;
-	private ArrayList<Item> addedFriend;
-	private ArrayList<Item> blockedFriend;
+	private ArrayList<FriendItem> generalFriend;
+	private ArrayList<FriendItem> addedFriend;
+	private ArrayList<FriendItem> blockedFriend;
+
+	private ProgressBar progressBar;
+	private SessionTimer sessionTimer;
+	private SessionTimerHandler sessionTimerHandler;
+	class SessionTimerHandler extends Handler {
+		TextView tvTime;
+		SessionTimerHandler(TextView tvTime) {
+			this.tvTime = tvTime;
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+//			super.handleMessage(msg);
+
+			int remainTime = msg.what;
+			progressBar.setProgress(remainTime);
+
+			int sec = remainTime % 60;
+			int min = remainTime / 60;
+			int hour = min / 60;
+
+			tvTime.setText(String.format("%02d:%02d:%02d", hour, min, sec));
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_friend_list);
 
-		generalFriend = new ArrayList<Item>();
-		addedFriend = new ArrayList<Item>();
-		blockedFriend = new ArrayList<Item>();
+		generalFriend = new ArrayList<FriendItem>();
+		addedFriend = new ArrayList<FriendItem>();
+		blockedFriend = new ArrayList<FriendItem>();
 
 		generalFriend =  getIntent().getParcelableArrayListExtra("general");
 		addedFriend =  getIntent().getParcelableArrayListExtra("added");
 		blockedFriend =  getIntent().getParcelableArrayListExtra("blocked");
 
-		int selectedMin= (int) getIntent().getSerializableExtra("selectedMin");
+		int selectedMin = (int) getIntent().getSerializableExtra("selectedMin");
 
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -96,22 +133,19 @@ public class FriendListActivity extends AppCompatActivity
 						.setAction("Action", null).show();
 			}
 		});*/
-		ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBarTime);
-		progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
+
+		progressBar = (ProgressBar)findViewById(R.id.progressBarTime);
+//		progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
+		progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.gradient_color));
 
 		int maxTime = selectedMin*60;
-		int remainTime = 12*60;
-
-		TextView tv = (TextView)findViewById(R.id.tvTime);
 		TextView tv_maxtime = (TextView)findViewById(R.id.maxTime);
-		if(remainTime%60 > 10)
-			tv.setText(remainTime/60+":"+remainTime%60+":00");
-		else
-			tv.setText(remainTime/60+":0"+remainTime%60+":00");
-		tv_maxtime.setText(maxTime/60+"min.");
+		tv_maxtime.setText(maxTime / 60 + "min.");
 
-		progressBar.setMax(maxTime);
-		progressBar.setProgress(remainTime);
+		// Start a session timer
+		TextView tvSessionTime = (TextView)findViewById(R.id.tvTime);
+		sessionTimerHandler = new SessionTimerHandler(tvSessionTime);
+		sessionTimer = new SessionTimer(sessionTimerHandler, progressBar, selectedMin);
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -124,7 +158,7 @@ public class FriendListActivity extends AppCompatActivity
 		navigationView.setNavigationItemSelectedListener(this);
 
 
-		adapter = new ListItemAdapter(getApplicationContext(),Definition.ADDFRIENDNAVI);
+		adapter = new ListItemAdapter(getApplicationContext(), Definition.ADDFRIENDNAVI);
 		// 리스트뷰 참조 및 Adapter달기
 		userList = (ListView) findViewById(R.id.listViewNavi);
 		userList.setAdapter(adapter);
@@ -132,7 +166,7 @@ public class FriendListActivity extends AppCompatActivity
 		if(generalFriend != null)
 		adapter.addArray(generalFriend);
 
-		Item u1 = new Item(getResources().getDrawable(R.drawable.demo_profile_01), "성덕선", "subtext");
+		FriendItem u1 = new FriendItem(getResources().getDrawable(R.drawable.demo_profile_01), "성덕선", "subtext");
 		adapter.add(u1);
 
 		// Data가 변경 되있음을 알려준다.
@@ -158,7 +192,37 @@ public class FriendListActivity extends AppCompatActivity
 				String msg = String.format("Selected minutes before expired= %d",	getIntent().getIntExtra("selectedMin", -1));
 				msg += String.format("\n\n[Kakao UserProfile]\nid= %d,\nnickname= %s,\nprofileImage= %s",
 						userProfile.getId(), userProfile.getNickname(), userProfile.getProfileImagePath());
-				Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+
+				final String pathThumb = userProfile.getThumbnailImagePath();
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							URL url = new URL(pathThumb);
+							URLConnection conn = url.openConnection();
+							conn.connect();
+							BufferedInputStream bis = new BufferedInputStream(conn.getInputStream());
+							final Bitmap bm = BitmapFactory.decodeStream(bis);
+							bis.close();
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+//									Toast.makeText(getApplicationContext(), "Byte= " + bm.getByteCount(), Toast.LENGTH_SHORT).show();
+									((ImageView) findViewById(R.id.ivProfile)).setImageDrawable(new RoundedAvatarDrawable(bm));
+
+									Drawable drawable = new BitmapDrawable(Utils.blur(getApplicationContext(), bm, 6));
+									((RelativeLayout) findViewById(R.id.rlProfile)).setBackground(drawable);
+								}
+							});
+
+						} catch (MalformedURLException e) {
+							e.printStackTrace();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}).start();
 			}
 
 			@Override
@@ -248,10 +312,10 @@ public class FriendListActivity extends AppCompatActivity
 				});
 				break;
 
-			case R.id.action_test_gcm:
-				i = new Intent(getApplicationContext(), TestActivity.class);
-				startActivity(i);
-				break;
+//			case R.id.action_test_gcm:
+//				i = new Intent(getApplicationContext(), TestActivity.class);
+//				startActivity(i);
+//				break;
 		}
 
 		return super.onOptionsItemSelected(item);

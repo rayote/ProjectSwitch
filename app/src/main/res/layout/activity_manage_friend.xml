@@ -8,7 +8,7 @@
 	android:layout_height="match_parent"
 	android:fitsSystemWindows="true"
 	android:background="@color/lightgray"
-	tools:context="kkook.team.projectswitch.ManageFriendActivity">
+	tools:context=".view.ManageFriendActivity">
 
 	<android.support.design.widget.AppBarLayout
 		android:id="@+id/appbar"

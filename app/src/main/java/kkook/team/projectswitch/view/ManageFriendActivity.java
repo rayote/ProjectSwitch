@@ -1,4 +1,4 @@
-package kkook.team.projectswitch;
+package kkook.team.projectswitch.view;
 
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
@@ -12,14 +12,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-import android.widget.ListView;
 import android.widget.TextView;
+
+import kkook.team.projectswitch.common.ManagePlaceholderFragment;
+import kkook.team.projectswitch.R;
 
 public class ManageFriendActivity extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class ManageFriendActivity extends AppCompatActivity {
 	 * may be best to switch to a
 	 * {@link android.support.v4.app.FragmentStatePagerAdapter}.
 	 */
-	private SectionsPagerAdapter mSectionsPagerAdapter;
+	private ManageSectionsPagerAdapter mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
@@ -48,7 +48,7 @@ public class ManageFriendActivity extends AppCompatActivity {
 		setSupportActionBar(toolbar);
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+		mSectionsPagerAdapter = new ManageSectionsPagerAdapter(getSupportFragmentManager());
 
 		textView = (TextView)findViewById(R.id.toolbar_friend_tv);
 		// Set up the ViewPager with the sections adapter.
@@ -172,45 +172,6 @@ public class ManageFriendActivity extends AppCompatActivity {
 					return "차단목록";
 			}
 			return null;
-		}
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class ManagePlaceholderFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		private ListView userListPage;
-		private ListItemAdapter adapterManage;
-
-		private static final String ARG_SECTION_NUMBER = "section_number";
-
-		/**
-		 * Returns a new instance of this fragment for the given section
-		 * number.
-		 */
-		public static ManagePlaceholderFragment newInstance(int sectionNumber) {
-			ManagePlaceholderFragment fragment = new ManagePlaceholderFragment();
-			Bundle args = new Bundle();
-			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-			fragment.setArguments(args);
-
-			return fragment;
-		}
-
-		public ManagePlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-								 Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main1, container, false);
-			//tv = (TextView) rootView.findViewById(R.id.toolbar_friend_tv);
-			//tv.setText("친구관리");
-			return rootView;
 		}
 	}
 }

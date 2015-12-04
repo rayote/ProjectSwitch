@@ -1,11 +1,11 @@
-package kkook.team.projectswitch;
+package kkook.team.projectswitch.util;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.View;
+
+import kkook.team.projectswitch.common.PlaceholderFragment;
 
 /**
  * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

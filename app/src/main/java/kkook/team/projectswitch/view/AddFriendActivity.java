@@ -1,18 +1,21 @@
-package kkook.team.projectswitch;
+package kkook.team.projectswitch.view;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import kkook.team.projectswitch.common.Definition;
+import kkook.team.projectswitch.common.FriendItem;
+import kkook.team.projectswitch.util.ListItemAdapter;
+import kkook.team.projectswitch.R;
 
 public class AddFriendActivity extends AppCompatActivity {
 
@@ -20,9 +23,9 @@ public class AddFriendActivity extends AppCompatActivity {
 	private ListItemAdapter adapter;
 	private Button btn;
 
-	private ArrayList<Item> generalFriend;
-	private ArrayList<Item> addedFriend;
-	private ArrayList<Item> blockedFriend;
+	private ArrayList<FriendItem> generalFriend;
+	private ArrayList<FriendItem> addedFriend;
+	private ArrayList<FriendItem> blockedFriend;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +76,13 @@ public class AddFriendActivity extends AppCompatActivity {
 		});
 
 		// Data 추가
-		Item u1 = new Item(getResources().getDrawable(R.drawable.demo_profile_01), "성덕선", "subtext");
-		Item u2 = new Item(getResources().getDrawable(R.drawable.demo_profile_02), "성보라", "subtext");
-		Item u3 = new Item(getResources().getDrawable(R.drawable.demo_profile_03), "김정팔", "subtext");
+		FriendItem u1 = new FriendItem(getResources().getDrawable(R.drawable.demo_profile_01), "성덕선", "subtext");
+		FriendItem u2 = new FriendItem(getResources().getDrawable(R.drawable.demo_profile_02), "성보라", "subtext");
+		FriendItem u3 = new FriendItem(getResources().getDrawable(R.drawable.demo_profile_03), "김정팔", "subtext");
 
-		generalFriend = new ArrayList<Item>();
-		addedFriend = new ArrayList<Item>();
-		blockedFriend = new ArrayList<Item>();
+		generalFriend = new ArrayList<FriendItem>();
+		addedFriend = new ArrayList<FriendItem>();
+		blockedFriend = new ArrayList<FriendItem>();
 
 
 		generalFriend.add(u1);
@@ -99,7 +102,7 @@ public class AddFriendActivity extends AppCompatActivity {
 		userList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView parent, View view,
 									int position, long id) {
-				Item item= adapter.getItem(position);
+				FriendItem item= adapter.getItem(position);
 
 				if(item.getDataType() == Definition.UNSELETED)
 				{

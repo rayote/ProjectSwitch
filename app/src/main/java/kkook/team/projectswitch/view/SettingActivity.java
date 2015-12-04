@@ -1,18 +1,20 @@
-package kkook.team.projectswitch;
+package kkook.team.projectswitch.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-public class ManageFriendGroupActivity extends AppCompatActivity {
+import kkook.team.projectswitch.R;
+
+public class SettingActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_manage_friend_group);
+		setContentView(R.layout.activity_setting);
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle("그룹 관리");
+		getSupportActionBar().setTitle("설정");
 	}
 
 	@Override
