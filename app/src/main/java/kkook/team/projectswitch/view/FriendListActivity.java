@@ -158,7 +158,7 @@ public class FriendListActivity extends AppCompatActivity
 		navigationView.setNavigationItemSelectedListener(this);
 
 
-		adapter = new ListItemAdapter(getApplicationContext(), Definition.ADDFRIENDNAVI);
+		adapter = new ListItemAdapter(this, Definition.ADDFRIENDNAVI);
 		// 리스트뷰 참조 및 Adapter달기
 		userList = (ListView) findViewById(R.id.listViewNavi);
 		userList.setAdapter(adapter);

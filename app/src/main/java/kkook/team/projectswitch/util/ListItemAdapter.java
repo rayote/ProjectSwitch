@@ -1,13 +1,17 @@
 package kkook.team.projectswitch.util;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -198,6 +202,39 @@ public class ListItemAdapter extends BaseAdapter implements OnClickListener {
 				tvUserName.setText(mUser.getUserName());
 				btnImg_01.setOnClickListener(this);
 			}
+
+
+			// FIXME: GCM 전송을 위한 Input Dialog
+			((RelativeLayout) view.findViewById(R.id.relativeLayout)).setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+
+					alert.setTitle("메시지 전송");
+					alert.setMessage("보낼 메시지 내용");
+
+					// Set an EditText view to get user input
+					final EditText input = new EditText(mContext);
+					alert.setView(input);
+
+					alert.setPositiveButton("전송", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							String value = input.getText().toString();
+							new ThreadGCMSender(mContext).sendMessage(value);
+							// Do something with value!
+						}
+					});
+
+					alert.setNegativeButton("취소",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+									// Canceled.
+								}
+							});
+
+					alert.show();
+				}
+			});
 
 		} else if (mListTypeInfo == Definition.ADDFRIENDNAVI) {
 			// 리스트 아이템이 새로 추가될 경우에는 v가 null값이다.

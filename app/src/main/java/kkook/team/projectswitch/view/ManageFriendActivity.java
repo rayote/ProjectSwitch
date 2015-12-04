@@ -130,10 +130,12 @@ public class ManageFriendActivity extends AppCompatActivity {
 				finish();
 				return true;
 
+			/* FIXME: 친구 그룹관리 메뉴 기능
 			case R.id.action_manage_group:
 				Intent i = new Intent(getApplicationContext(), ManageFriendGroupActivity.class);
 				startActivity(i);
 				return true;
+				*/
 		}
 
 		return super.onOptionsItemSelected(item);

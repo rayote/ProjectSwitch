@@ -2,9 +2,10 @@
 	  xmlns:app="http://schemas.android.com/apk/res-auto"
 	  xmlns:tools="http://schemas.android.com/tools"
 	  tools:context=".view.ManageFriendActivity">
-	<item android:id="@+id/action_manage_group"
+<!--	<item android:id="@+id/action_manage_group"
 		  android:title="@string/action_manage_group"
 		  android:orderInCategory="100"
 		  android:icon="@android:drawable/ic_menu_manage"
 		  app:showAsAction="always"/>
+		  -->
 </menu>
