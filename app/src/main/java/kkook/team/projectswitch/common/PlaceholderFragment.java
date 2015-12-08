@@ -88,15 +88,13 @@ public class PlaceholderFragment extends Fragment {
 			userListPage = (ListView) rootView.findViewById(R.id.listViewPage1);
 			userListPage.setAdapter(adapterSendMsg);
 
-			u1 = new FriendItem(getResources().getDrawable(R.drawable.ic_switch_on), "김e씨", "010-1234-5678");
-			u2 = new FriendItem(getResources().getDrawable(R.drawable.ic_switch_on), "이e씨", "010-8765-4321");
-			u3 = new FriendItem(getResources().getDrawable(R.drawable.ic_switch_on), "박e씨", "010-0000-0000");
+
 			// Data 추가
-			adapterSendMsg.add(u1);
-
-			adapterSendMsg.add(u2);
-
-			adapterSendMsg.add(u3);
+			adapterSendMsg.add(new FriendItem(getResources().getDrawable(R.drawable.ic_on_time), "On-Time Setting", ""));
+			adapterSendMsg.add(new FriendItem(getResources().getDrawable(R.drawable.ic_term), "Terms & Privacy", ""));
+			adapterSendMsg.add(new FriendItem(getResources().getDrawable(R.drawable.ic_contact), "Contact us", ""));
+			adapterSendMsg.add(new FriendItem(getResources().getDrawable(R.drawable.ic_drop), "Drop out", ""));
+			adapterSendMsg.add(new FriendItem(getResources().getDrawable(R.drawable.ic_sponsor), "Sponsor List", ""));
 
 			// Data가 변경 되있음을 알려준다.
 			adapterSendMsg.notifyDataSetChanged();

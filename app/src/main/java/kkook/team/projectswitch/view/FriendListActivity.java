@@ -18,8 +18,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -43,6 +46,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import android.view.View.OnClickListener;
 
 import kkook.team.projectswitch.common.Definition;
 import kkook.team.projectswitch.common.FriendItem;
@@ -134,6 +138,16 @@ public class FriendListActivity extends AppCompatActivity
 			}
 		});*/
 
+		ImageButton ib = (ImageButton)findViewById(R.id.magagefriend);
+		ib.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent i = new Intent(getApplicationContext(), ManageFriendActivity.class);
+				startActivity(i);
+
+			}
+		});
 		progressBar = (ProgressBar)findViewById(R.id.progressBarTime);
 //		progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.yellow), PorterDuff.Mode.SRC_IN);
 		progressBar.setProgressDrawable(getResources().getDrawable(R.drawable.gradient_color));
@@ -229,6 +243,10 @@ public class FriendListActivity extends AppCompatActivity
 			public void onNotSignedUp() {
 //				showSignup();
 			}
+
+
+
+
 		});
 
 		// Create the adapter that will return a fragment for each of the three
@@ -328,7 +346,7 @@ public class FriendListActivity extends AppCompatActivity
 		int id = item.getItemId();
 
 		switch (id) {
-			case R.id.nav_manage_friend:
+	/*		case R.id.nav_manage_friend:
 				Intent i = new Intent(getApplicationContext(), ManageFriendActivity.class);
 				startActivity(i);
 				break;
@@ -347,6 +365,7 @@ public class FriendListActivity extends AppCompatActivity
 
 			case R.id.nav_send:
 				break;
+				*/
 		}
 
 		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

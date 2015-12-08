@@ -8,6 +8,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -64,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		ImageButton ib = (ImageButton)findViewById(R.id.ibProfile);
+		ib.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				Intent i = new Intent(MainActivity.this , ProfileActivity.class);
+				startActivity(i);
+			}
+		});
 /*		generalFriend = new ArrayList<FriendItem>();
 		addedFriend = new ArrayList<FriendItem>();
 		blockedFriend = new ArrayList<FriendItem>();
@@ -139,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
 		alImgBtnSideSwitch.add((ImageView) findViewById(R.id.imgBtnSideBottom));
 		alImgBtnSideSwitch.add((ImageView) findViewById(R.id.imgBtnSideLeft));
 
+
 		relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
 		imgBtnSwitch = (ImageView) findViewById(R.id.imgBtnSwitch);
 		imgBtnSwitch.setOnTouchListener(new View.OnTouchListener() {
@@ -196,33 +207,37 @@ public class MainActivity extends AppCompatActivity {
 						final int minMove = 120;
 						if (dist > minMove) {
 							if (angleX >= 0 && angleX < 1.6 && angleY < 0) {
-								alImgBtnSideSwitch.get(DIRECTION.TOP.value()).setImageResource(R.drawable.bg_arrowbutton_y);
+								alImgBtnSideSwitch.get(DIRECTION.TOP.value()).setImageDrawable(getResources().getDrawable(R.drawable.bg_arrowbutton_y));
 								textUp.setTextColor(getResources().getColor(R.color.yellow));
 								selectedMin = 15;
-							} else
+							} else {
 								textUp.setTextColor(getResources().getColor(R.color.lightgray));
-							alImgBtnSideSwitch.get(DIRECTION.TOP.value()).setImageResource(R.drawable.bg_arrowbutton_g);
+								alImgBtnSideSwitch.get(DIRECTION.TOP.value()).setImageDrawable(getResources().getDrawable(R.drawable.bg_arrowbutton_g));
+							}
 							if (angleX >= 0 && angleY >= -1.6 && angleY < 0 && !(angleX >= 0 && angleX < 1.6 && angleY < 0)) {
 								textRight.setTextColor(getResources().getColor(R.color.yellow));
-								alImgBtnSideSwitch.get(DIRECTION.RIGHT.value()).setImageResource(R.drawable.bg_arrowbutton_y);
+								alImgBtnSideSwitch.get(DIRECTION.RIGHT.value()).setImageDrawable(getResources().getDrawable(R.drawable.bg_arrowbutton_y));
 								selectedMin = 30;
-							} else
+							} else {
 								textRight.setTextColor(getResources().getColor(R.color.lightgray));
-							alImgBtnSideSwitch.get(DIRECTION.RIGHT.value()).setImageResource(R.drawable.bg_arrowbutton_g);
+								alImgBtnSideSwitch.get(DIRECTION.RIGHT.value()).setImageDrawable(getResources().getDrawable(R.drawable.bg_arrowbutton_g));
+							}
 							if (angleX >= 0 && angleX < 1.6 && angleY >= 0) {
 								textDown.setTextColor(getResources().getColor(R.color.yellow));
-								alImgBtnSideSwitch.get(DIRECTION.BOTTOM.value()).setImageResource(R.drawable.bg_arrowbutton_y);
+								alImgBtnSideSwitch.get(DIRECTION.BOTTOM.value()).setImageDrawable(getResources().getDrawable(R.drawable.bg_arrowbutton_y));
 								selectedMin = 45;
-							} else
+							} else{
 								textDown.setTextColor(getResources().getColor(R.color.lightgray));
-							alImgBtnSideSwitch.get(DIRECTION.BOTTOM.value()).setImageResource(R.drawable.bg_arrowbutton_g);
-							if (angleX >= 1.6 && angleY >= 0 && angleY < 1.6) {
+							alImgBtnSideSwitch.get(DIRECTION.BOTTOM.value()).setImageDrawable(getResources().getDrawable(R.drawable.bg_arrowbutton_g));
+						}
+						if (angleX >= 1.6 && angleY >= 0 && angleY < 1.6) {
 								textLeft.setTextColor(getResources().getColor(R.color.yellow));
-								alImgBtnSideSwitch.get(DIRECTION.LEFT.value()).setImageResource(R.drawable.bg_arrowbutton_y);
+								alImgBtnSideSwitch.get(DIRECTION.LEFT.value()).setImageDrawable(getResources().getDrawable(R.drawable.bg_arrowbutton_y));
 								selectedMin = 60;
-							} else
-								textLeft.setTextColor(getResources().getColor(R.color.lightgray));
-							alImgBtnSideSwitch.get(DIRECTION.LEFT.value()).setImageResource(R.drawable.bg_arrowbutton_g);
+							} else {
+							textLeft.setTextColor(getResources().getColor(R.color.lightgray));
+							alImgBtnSideSwitch.get(DIRECTION.LEFT.value()).setImageDrawable(getResources().getDrawable(R.drawable.bg_arrowbutton_g));
+						}
 						}
 						break;
 				}

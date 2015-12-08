@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!--
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_manage_friend" android:icon="@android:drawable/ic_menu_myplaces"
             android:title="친구목록 관리" />
@@ -20,5 +20,5 @@
                 android:title="Send" />
         </menu>
     </item>
-
+-->
 </menu>

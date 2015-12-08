@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".view.InteractInfoActivity"
+	android:paddingLeft="15dp"
+	android:paddingRight="15dp"
+	android:paddingTop="5dp"
+	android:paddingBottom="5dp"
+	>
+
+	<ImageView
+		android:id="@+id/iv_profile"
+		android:layout_width="150dp"
+		android:layout_height="150dp"
+		android:src="@drawable/demo_profile_01"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="25dp" />
+
+	<TextView
+		android:id="@+id/textView"
+		android:layout_width="wrap_content"
+		android:layout_height="40dp"
+
+		android:paddingLeft="5dp"
+		android:paddingRight="5dp"
+		android:paddingTop="10dp"
+		android:paddingBottom="5dp"
+
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:text="Status"
+		android:textColor="@color/black"
+		android:textStyle="bold"
+		android:textSize="20dp"
+		android:layout_centerHorizontal="true"
+		android:layout_centerVertical="true"
+		android:layout_marginTop="10dp"
+		android:layout_below="@+id/iv_profile" />
+
+	<RelativeLayout
+		android:id="@+id/info01_layout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="75dp"
+		android:layout_below="@+id/textView"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp">
+
+		<TextView
+			android:id="@+id/info01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="Interation Info."
+			android:textColor="@color/black"
+			android:textSize="20dp" />
+		<TextView
+			android:id="@+id/info01_1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:hint="Sent : NN  Recived : NN"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_below="@+id/info01"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="10dp"/>
+		<ImageView
+			android:layout_width="fill_parent"
+			android:layout_height="2dp"
+			android:background="@color/gray"
+			android:layout_centerHorizontal="true"
+			android:layout_below="@+id/info01_1"/>
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:id="@+id/info02_layout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="75dp"
+		android:layout_below="@+id/info01_layout"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp">
+
+		<TextView
+			android:id="@+id/info02"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="Interation Info."
+			android:textColor="@color/black"
+			android:textSize="20dp" />
+		<TextView
+			android:id="@+id/info02_1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:hint="Sent : NN  Recived : NN"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_below="@+id/info02"
+			android:layout_marginLeft="10dp"
+			android:layout_marginTop="10dp"/>
+		<ImageView
+			android:layout_width="fill_parent"
+			android:layout_height="2dp"
+			android:background="@color/gray"
+			android:layout_centerHorizontal="true"
+			android:layout_below="@+id/info02_1"/>
+	</RelativeLayout>
+
+
+
+</RelativeLayout>
