@@ -56,9 +56,9 @@ public class SplashActivity extends AppCompatActivity {
 				iv_02.postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						startActivity(new Intent(SplashActivity.this, KakaoLoginActivity.class));
+						//startActivity(new Intent(SplashActivity.this, KakaoLoginActivity.class));
 
-//						startActivity(new Intent(SplashActivity.this, AddFriendActivity.class));
+						startActivity(new Intent(SplashActivity.this, AddFriendActivity.class));
 						finish();
 					}
 				}, 1500);

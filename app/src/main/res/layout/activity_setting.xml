@@ -4,10 +4,200 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:paddingLeft="@dimen/activity_horizontal_margin"
-	android:paddingRight="@dimen/activity_horizontal_margin"
-	android:paddingTop="@dimen/activity_vertical_margin"
-	android:paddingBottom="@dimen/activity_vertical_margin"
-	tools:context=".view.SettingActivity">
+	tools:context=".view.SettingActivity"
+	android:paddingLeft="15dp"
+	android:paddingRight="15dp"
+	android:paddingTop="5dp"
+	android:paddingBottom="5dp"
+	>
 
+	<RelativeLayout
+		android:id="@+id/setting01_layout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+		android:clickable="true">
+
+		<ImageView
+			android:id="@+id/img01"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="#00000000"
+			android:src="@drawable/ic_on_time"
+			android:layout_alignParentLeft="true"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"/>
+		<TextView
+			android:id="@+id/setting01"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="On-Time Setting"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/img01"
+			android:layout_marginLeft="20dp"
+			/>
+		<ImageView
+			android:layout_width="fill_parent"
+			android:layout_height="2dp"
+			android:background="@color/gray"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentBottom="true"/>
+	</RelativeLayout>
+	<RelativeLayout
+		android:id="@+id/setting02_layout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+		android:clickable="true"
+		android:layout_below="@+id/setting01_layout">
+
+		<ImageView
+			android:id="@+id/img02"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="#00000000"
+			android:src="@drawable/ic_term"
+			android:layout_alignParentLeft="true"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"/>
+		<TextView
+			android:id="@+id/setting02"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="Terms &amp; Privacy"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/img02"
+			android:layout_marginLeft="20dp"
+			/>
+		<ImageView
+			android:layout_width="fill_parent"
+			android:layout_height="2dp"
+			android:background="@color/gray"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentBottom="true"/>
+	</RelativeLayout>
+	<RelativeLayout
+		android:id="@+id/setting03_layout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+		android:clickable="true"
+		android:layout_below="@+id/setting02_layout">
+
+		<ImageView
+			android:id="@+id/img03"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="#00000000"
+			android:src="@drawable/ic_contact"
+			android:layout_alignParentLeft="true"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"/>
+		<TextView
+			android:id="@+id/setting03"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="Contact us"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/img03"
+			android:layout_marginLeft="20dp"
+			/>
+		<ImageView
+			android:layout_width="fill_parent"
+			android:layout_height="2dp"
+			android:background="@color/gray"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentBottom="true"/>
+	</RelativeLayout>
+	<RelativeLayout
+		android:id="@+id/setting04_layout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+		android:clickable="true"
+		android:layout_below="@+id/setting03_layout">
+
+		<ImageView
+			android:id="@+id/img04"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="#00000000"
+			android:src="@drawable/ic_drop"
+			android:layout_alignParentLeft="true"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"/>
+		<TextView
+			android:id="@+id/setting04"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="Drop out"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/img04"
+			android:layout_marginLeft="20dp"
+			/>
+		<ImageView
+			android:layout_width="fill_parent"
+			android:layout_height="2dp"
+			android:background="@color/gray"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentBottom="true"/>
+	</RelativeLayout>
+	<RelativeLayout
+		android:id="@+id/setting05_layout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+		android:clickable="true"
+		android:layout_below="@+id/setting04_layout">
+
+		<ImageView
+			android:id="@+id/img05"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:background="#00000000"
+			android:src="@drawable/ic_sponsor"
+			android:layout_alignParentLeft="true"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"/>
+		<TextView
+			android:id="@+id/setting05"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="Sponsor List"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/img05"
+			android:layout_marginLeft="20dp"
+			/>
+		<ImageView
+			android:layout_width="fill_parent"
+			android:layout_height="2dp"
+			android:background="@color/gray"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentBottom="true"/>
+	</RelativeLayout>
 </RelativeLayout>

@@ -3,6 +3,7 @@ package kkook.team.projectswitch.util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import kkook.team.projectswitch.common.Definition;
 import kkook.team.projectswitch.common.FriendItem;
 import kkook.team.projectswitch.R;
+import kkook.team.projectswitch.view.InteractInfoActivity;
+import kkook.team.projectswitch.view.ProfileActivity;
 
 
 /**
@@ -32,6 +35,7 @@ public class ListItemAdapter extends BaseAdapter implements OnClickListener {
 	// Activity에서 가져온 객체정보를 저장할 변수
 	private FriendItem mUser;
 	private Context mContext;
+	private Context mContext_tmp;
 
 	private int nSelectedItemNum; //Number of selected data
 
@@ -190,9 +194,10 @@ public class ListItemAdapter extends BaseAdapter implements OnClickListener {
 			// 받아온 position 값을 이용하여 배열에서 아이템을 가져온다.
 			mUser = getItem(position);
 
-
 			// Tag를 이용하여 데이터와 뷰를 묶습니다.
 			btnImg_01.setTag(mUser);
+			btnImg_01.setTag(mUser);
+
 			// 데이터의 실존 여부를 판별합니다.
 			if (mUser != null) {
 				// 데이터가 있다면 갖고 있는 정보를 뷰에 알맞게 배치시킵니다.
@@ -204,37 +209,6 @@ public class ListItemAdapter extends BaseAdapter implements OnClickListener {
 			}
 
 
-			// FIXME: GCM 전송을 위한 Input Dialog
-			((RelativeLayout) view.findViewById(R.id.relativeLayout)).setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
-
-					alert.setTitle("메시지 전송");
-					alert.setMessage("보낼 메시지 내용");
-
-					// Set an EditText view to get user input
-					final EditText input = new EditText(mContext);
-					alert.setView(input);
-
-					alert.setPositiveButton("전송", new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int whichButton) {
-							String value = input.getText().toString();
-							new ThreadGCMSender(mContext).sendMessage(value);
-							// Do something with value!
-						}
-					});
-
-					alert.setNegativeButton("취소",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog, int whichButton) {
-									// Canceled.
-								}
-							});
-
-					alert.show();
-				}
-			});
 
 		} else if (mListTypeInfo == Definition.ADDFRIENDNAVI) {
 			// 리스트 아이템이 새로 추가될 경우에는 v가 null값이다.
@@ -258,10 +232,8 @@ public class ListItemAdapter extends BaseAdapter implements OnClickListener {
 			// 받아온 position 값을 이용하여 배열에서 아이템을 가져온다.
 			mUser = getItem(position);
 
-
 			// Tag를 이용하여 데이터와 뷰를 묶습니다.
 			btnImg_01.setTag(mUser);
-			btnImg_02.setTag(mUser);
 			// 데이터의 실존 여부를 판별합니다.
 			if (mUser != null) {
 				// 데이터가 있다면 갖고 있는 정보를 뷰에 알맞게 배치시킵니다.
@@ -296,6 +268,7 @@ public class ListItemAdapter extends BaseAdapter implements OnClickListener {
 
 			// Tag를 이용하여 데이터와 뷰를 묶습니다.
 			btnImg_01.setTag(mUser);
+
 			// 데이터의 실존 여부를 판별합니다.
 			if (mUser != null) {
 				// 데이터가 있다면 갖고 있는 정보를 뷰에 알맞게 배치시킵니다.
@@ -384,11 +357,46 @@ public class ListItemAdapter extends BaseAdapter implements OnClickListener {
 				//btn event 1
 				if (mListTypeInfo == Definition.ADDFRIENDNAVI)
 					Toast.makeText(v.getContext(), clickItem.getUserName() + " is added", Toast.LENGTH_SHORT).show();
+				else if (mListTypeInfo == Definition.SENDMSG || mListTypeInfo == Definition.INTERACTIONINFO) {
+					// FIXME: GCM 전송을 위한 Input Dialog
+
+					AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+
+					alert.setTitle("메시지 전송");
+					alert.setMessage("보낼 메시지 내용");
+
+					// Set an EditText view to get user input
+					final EditText input = new EditText(mContext);
+					alert.setView(input);
+
+					alert.setPositiveButton("전송", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							String value = input.getText().toString();
+							new ThreadGCMSender(mContext).sendMessage(value);
+							// Do something with value!
+						}
+					});
+
+					alert.setNegativeButton("취소",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+									// Canceled.
+								}
+							});
+
+					alert.show();
+
+				}
 				break;
 			case R.id.btn_02:
 				//btn event 2
 				if (mListTypeInfo == Definition.ADDFRIENDNAVI)
 					Toast.makeText(v.getContext(), clickItem.getUserName() + " is Bocked", Toast.LENGTH_SHORT).show();
+				else if(mListTypeInfo == Definition.INTERACTIONINFO)
+				{
+					Intent i = new Intent(mContext, InteractInfoActivity.class);
+					mContext.startActivity(i);
+				}
 				break;
 		}
 	}

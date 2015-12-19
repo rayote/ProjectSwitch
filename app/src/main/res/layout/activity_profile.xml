@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context=".view.ProfileActivity"
+	>
+
+
+	<ImageView
+		android:layout_width="150dp"
+		android:layout_height="150dp"
+		android:id="@+id/profile"
+		android:src="@drawable/demo_profile_01"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="25dp" />
+
+	<TextView
+		android:id="@+id/textView"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+
+		android:paddingLeft="5dp"
+		android:paddingRight="5dp"
+		android:paddingTop="5dp"
+		android:paddingBottom="5dp"
+
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:text="Switch를 켠시간 :  xx min"
+		android:textColor="@color/black"
+		android:textStyle="bold"
+		android:textSize="20dp"
+		android:background="@drawable/border1"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+		android:layout_below="@+id/profile" />
+
+	<RelativeLayout
+		android:id="@+id/namelayout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:layout_below="@+id/textView"
+		android:layout_centerHorizontal="true"
+		android:background="@drawable/border2"
+		android:layout_marginTop="10dp">
+
+		<TextView
+			android:id="@+id/titleName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="Name"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="20dp" />
+		<TextView
+			android:id="@+id/textName"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:hint="Name"
+			android:textColor="@color/black"
+			android:textSize="20dp"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="75dp" />
+		<ImageButton
+			android:id="@+id/editName"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:src="@drawable/btn_edit"
+			android:background="#00000000"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="10dp"/>
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:id="@+id/statuslayout"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:layout_below="@+id/namelayout"
+		android:layout_centerHorizontal="true"
+		android:background="@drawable/border2"
+		android:layout_marginTop="10dp">
+
+		<TextView
+			android:id="@+id/titleStatus"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="Status"
+			android:textColor="@color/black"
+			android:textSize="25dp"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="20dp" />
+		<TextView
+			android:id="@+id/textStatus"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:hint="Status"
+			android:textColor="@color/black"
+			android:textSize="20dp"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="75dp" />
+		<ImageButton
+			android:id="@+id/editStatus"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:src="@drawable/btn_edit"
+			android:background="#00000000"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="10dp"/>
+	</RelativeLayout>
+
+
+</RelativeLayout>
