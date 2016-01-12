@@ -8,7 +8,8 @@ import com.kakao.sdk.common.GlobalApplication;
  * Created by Askai on 2015-12-04.
  */
 public class SharedApplication extends GlobalApplication {
-	public static final String SERVER_URL = "http://project-switch.appspot.com/";
+//	public static final String SERVER_URL = "http://project-switch.appspot.com/";
+	public static final String SERVER_URL = "http://ec2-52-69-141-128.ap-northeast-1.compute.amazonaws.com:3000";
 	public static String GCM_UserToken = null;
 	public final String testStr = "GlobalApplication 테스트";
 

@@ -28,7 +28,9 @@ public class DataSendTask extends AsyncTask<JSONObject, Integer, Boolean> {
 		String request, response;
 
 		try {
-			URL url = new URL(SharedApplication.SERVER_URL);
+			String op_api = params[0].get("op").toString();
+			URL url = new URL(SharedApplication.SERVER_URL + op_api);
+
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Content-Type", "application/json");

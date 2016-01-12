@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -129,14 +131,17 @@ public class FriendListActivity extends AppCompatActivity
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
-	/*	FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+		// FIXME: Hide the fab
+		/*
+		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
 			}
-		});*/
+		});
+		*/
 
 		ImageButton ib = (ImageButton)findViewById(R.id.magagefriend);
 		ib.setOnClickListener(new View.OnClickListener() {
@@ -223,8 +228,10 @@ public class FriendListActivity extends AppCompatActivity
 								@Override
 								public void run() {
 //									Toast.makeText(getApplicationContext(), "Byte= " + bm.getByteCount(), Toast.LENGTH_SHORT).show();
+									// Set foreground (rounded image) of the profile image
 									((ImageView) findViewById(R.id.ivProfile)).setImageDrawable(new RoundedAvatarDrawable(bm));
 
+									// Set background (blurred image) of the profile image
 									Drawable drawable = new BitmapDrawable(Utils.blur(getApplicationContext(), bm, 6));
 									((RelativeLayout) findViewById(R.id.rlProfile)).setBackground(drawable);
 								}

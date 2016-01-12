@@ -1,10 +1,28 @@
+------------------------------------------------------------------------------------------------------------------------
 
-※ "keytool"은 [JDK 설치경로]/bin 폴더에 있음. 
+※ <debug_keystore_path>
+OS X와 리눅스 : Eclipse "ADT > Preferences > Android > Build > Default debug keystore" 에서 확인 가능합니다.
+    - 예 : ~/.android/debug.keystore
+    - Windows : Eclipse "Window > Preferences > Android > Build > Default debug keystore" 에서 확인 가능합니다.
+    - Windows Vista와 Windows 7 예: C:\Users\<user>\.android\debug.keystore
+    - Windows XP 예 : C:\Documents and Settings\<user>\.android\debug.keystore
+
+※ keytool : $JAVA_HOME/bin 아래에 존재합니다.
+※ openssl : Windows의 경우는 다운받아 설치합니다.
+
+
+------------------------------------------------------------------------------------------------------------------------
+
 
 1. 개발자용 디버그 키해시
 keytool -exportcert -alias androiddebugkey -keystore C:\Users\Askai\.android\debug.keystore -storepass android -keypass android | openssl sha1 -binary | openssl base64
 
+// Lab PC 
 4QASUaQWtutlqRteZ/kOo/iKo8g=
+
+// Surface 3
+Ny8hsi9hopRq4OWKyReimee9D3I=
+
 
 2. 배포 시, 릴리즈 키해시
 keytool -exportcert -alias [릴리즈 keystore에서 사용할 alias] -keystore [릴리즈 keystore의 경로] -storepass [릴리즈 keystore PW] -keypass [릴리즈 keystore에서 해당 alias의 PW] | openssl sha1 -binary | openssl base64

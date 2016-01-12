@@ -101,25 +101,34 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onSuccess(UserProfile userProfile) {
 				try {
-					JSONObject kakaoInfo = new JSONObject();
-					kakaoInfo.put("kakao_id", userProfile.getId());
-					kakaoInfo.put("nickname", userProfile.getNickname());
-					kakaoInfo.put("profile_image", userProfile.getProfileImagePath());
-					kakaoInfo.put("thumbnail_image", userProfile.getThumbnailImagePath());
+//					JSONObject kakaoInfo = new JSONObject();
+//					kakaoInfo.put("kakao_id", userProfile.getId());
+//					kakaoInfo.put("nickname", userProfile.getNickname());
+//					kakaoInfo.put("profile_image", userProfile.getProfileImagePath());
+//					kakaoInfo.put("thumbnail_image", userProfile.getThumbnailImagePath());
 
 					JSONObject jsonObject = new JSONObject();
-					jsonObject.put("op", "insert_member");
+					// Set the suffix of server APIs
+					jsonObject.put("op", "/api/v1/signup");
 //					jsonObject.put("selected_min", getIntent().getIntExtra("selectedMin", -1));
-					jsonObject.put("kakao", kakaoInfo);
+//					jsonObject.put("kakao", kakaoInfo);
 
 					TelephonyManager telManager = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
 					String phone = telManager.getLine1Number();
-					jsonObject.put("phone", phone);
+					if(phone.length() > 10)
+						phone = String.format("%s-%s-%s", phone.substring(0, 3), phone.substring(3, 7), phone.substring(8));
+					jsonObject.put("phone_number", phone);
 
 					String gcmUserToken = "";
 					if(SharedApplication.GCM_UserToken != null)
 						gcmUserToken = SharedApplication.GCM_UserToken;
 					jsonObject.put("gcm_user_token", gcmUserToken);
+
+					// Initial information from Kakao account
+					jsonObject.put("auth_id", userProfile.getId());
+					jsonObject.put("nickname", userProfile.getNickname());
+					jsonObject.put("thumbnail_image", userProfile.getThumbnailImagePath());
+					jsonObject.put("profile_image", userProfile.getProfileImagePath());
 
 					new DataSendTask().execute(jsonObject);
 				} catch (JSONException e) {

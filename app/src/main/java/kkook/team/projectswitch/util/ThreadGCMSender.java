@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +15,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import kkook.team.projectswitch.R;
 
@@ -24,18 +26,25 @@ public class ThreadGCMSender extends Thread {
 	private static final String TAG = "[GCM] ThreadGCMSender";
 	Context context;
 	String msg;
+	ArrayList<String> targetUsers;
 
-	public ThreadGCMSender(Context context) {
-		this(context , null);
-	}
+//	public ThreadGCMSender(Context context) {
+//		this(context, null, null);
+//	}
 
-	public ThreadGCMSender(Context context, String msg) {
+	public ThreadGCMSender(Context context, String msg, ArrayList<String> targetUsers) {
 		this.context = context;
 		this.msg = msg;
+		this.targetUsers = targetUsers;
+	}
+
+	public  void  sendMessage() {
+		sendMessage(this.msg);
 	}
 
 	public void sendMessage(String msg) {
-		this.msg = msg;
+		if(this.msg == null)
+			this.msg = msg;
 
 		start();
 	}
@@ -48,11 +57,14 @@ public class ThreadGCMSender extends Thread {
 			JSONObject jData = new JSONObject();
 			jData.put("message", msg);
 			// Where to send GCM message.
-//				if (args.length > 1 && args[1] != null) {
-//					jGcmData.put("to", args[1].trim());
-//				} else {
-			jGcmData.put("to", "/topics/global");
-//				}
+			if(targetUsers != null && targetUsers.size() > 0) {
+				// FIXME: Prepare target users for multicast
+				jGcmData.put("registration_ids", new JSONArray(targetUsers));
+			} else {
+				// FIXME: Shouldn't work by broadcast
+				jGcmData.put("to", "/topics/global");
+			}
+
 			// What to send in GCM message.
 			jGcmData.put("data", jData);
 

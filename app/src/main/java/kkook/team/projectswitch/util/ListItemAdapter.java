@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import kkook.team.projectswitch.common.Definition;
 import kkook.team.projectswitch.common.FriendItem;
 import kkook.team.projectswitch.R;
+import kkook.team.projectswitch.common.SharedApplication;
 import kkook.team.projectswitch.view.InteractInfoActivity;
 import kkook.team.projectswitch.view.ProfileActivity;
 
@@ -372,7 +373,11 @@ public class ListItemAdapter extends BaseAdapter implements OnClickListener {
 					alert.setPositiveButton("전송", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
 							String value = input.getText().toString();
-							new ThreadGCMSender(mContext).sendMessage(value);
+							ArrayList<String> targetUsers = new ArrayList<String>();
+							// FIXME: Prepare target users to receive this multicast message
+							targetUsers.add(SharedApplication.GCM_UserToken);
+							// From: 1003688072011,  Message: ?
+							new ThreadGCMSender(mContext, value, targetUsers).sendMessage();
 							// Do something with value!
 						}
 					});

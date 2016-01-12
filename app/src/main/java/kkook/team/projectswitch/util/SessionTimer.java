@@ -37,7 +37,7 @@ public class SessionTimer {
 			public void run() {
 				remainSec--;
 
-				if(remainSec > 0)
+				if(remainSec >= 0)
 					handler.sendEmptyMessage(remainSec);
 				else
 					timer.cancel();

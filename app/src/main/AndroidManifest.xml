@@ -1,101 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="kkook.team.projectswitch" >
+<manifest package="kkook.team.projectswitch"
+		  xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.SEND" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+	<uses-permission android:name="android.permission.INTERNET"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+	<uses-permission android:name="com.google.android.c2dm.permission.SEND"/>
+	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
-    <permission android:name="kkook.team.projectswitch.permission.C2D_MESSAGE" android:protectionLevel="signature" />
-    <uses-permission android:name="kkook.team.projectswitch.permission.C2D_MESSAGE" />
+	<permission
+		android:name="kkook.team.projectswitch.permission.C2D_MESSAGE"
+		android:protectionLevel="signature"/>
+	<uses-permission android:name="kkook.team.projectswitch.permission.C2D_MESSAGE"/>
 
 
-    <application
-        android:name=".common.SharedApplication"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_project_switch"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" />
+	<application
+		android:name=".common.SharedApplication"
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_project_switch"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+		<meta-data
+			android:name="com.kakao.sdk.AppKey"
+			android:value="@string/kakao_app_key"/>
 
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="kkook.team.projectswitch" />
-            </intent-filter>
-        </receiver>
-        <service
-            android:name="kkook.team.projectswitch.gcm.MyGcmListenerService"
-            android:exported="false" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
-        <service
-            android:name="kkook.team.projectswitch.gcm.MyInstanceIDListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
-            </intent-filter>
-        </service>
-        <service android:name=".gcm.RegistrationIntentService" />
+		<receiver
+			android:name="com.google.android.gms.gcm.GcmReceiver"
+			android:exported="true"
+			android:permission="com.google.android.c2dm.permission.SEND">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+				<category android:name="kkook.team.projectswitch"/>
+			</intent-filter>
+		</receiver>
 
-        <activity
-            android:name=".view.FriendListActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.kakao.sdk.common.KakaoLoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.kakao.sdk.common.KakaoSignupActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+		<service
+			android:name="kkook.team.projectswitch.gcm.MyGcmListenerService"
+			android:exported="false">
+			<intent-filter>
+				<action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+			</intent-filter>
+		</service>
+		<service
+			android:name="kkook.team.projectswitch.gcm.MyInstanceIDListenerService"
+			android:exported="false">
+			<intent-filter>
+				<action android:name="com.google.android.gms.iid.InstanceID"/>
+			</intent-filter>
+		</service>
+		<service android:name=".gcm.RegistrationIntentService"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".view.AddFriendActivity" >
-        </activity>
-        <activity
-            android:name=".view.ManageFriendActivity"
-            android:label="@string/title_activity_manage_friend"
-            android:parentActivityName=".view.FriendListActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <activity
-            android:name=".view.ManageFriendGroupActivity"
-            android:parentActivityName=".view.ManageFriendActivity" >
-        </activity>
-        <activity android:name=".view.SettingActivity"
-            android:parentActivityName=".view.FriendListActivity">
-        </activity>
+		<activity
+			android:name=".view.FriendListActivity"
+			android:label="@string/app_name"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+			android:name=".view.MainActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+			android:name="com.kakao.sdk.common.KakaoLoginActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+			android:name="com.kakao.sdk.common.KakaoSignupActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+			android:name=".view.SplashActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.NoActionBar">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
 
-        <activity
-            android:name=".view.ProfileActivity"
-            android:parentActivityName=".view.MainActivity" >
-        </activity>
-        <activity
-            android:name=".view.InteractInfoActivity"
-            android:parentActivityName=".view.FriendListActivity" >
-        </activity>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".view.AddFriendActivity"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:name=".view.ManageFriendActivity"
+			android:label="@string/title_activity_manage_friend"
+			android:parentActivityName=".view.FriendListActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme.NoActionBar">
+		</activity>
+		<activity
+			android:name=".view.ManageFriendGroupActivity"
+			android:parentActivityName=".view.ManageFriendActivity"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:name=".view.SettingActivity"
+			android:parentActivityName=".view.FriendListActivity"
+			android:screenOrientation="portrait">
+		</activity>
 
-        <activity android:name=".gcm.TestActivity" />
-    </application>
+		<activity
+			android:name=".view.ProfileActivity"
+			android:parentActivityName=".view.MainActivity"
+			android:screenOrientation="portrait">
+		</activity>
+		<activity
+			android:name=".view.InteractInfoActivity"
+			android:parentActivityName=".view.FriendListActivity"
+			android:screenOrientation="portrait">
+		</activity>
+
+		<activity
+			android:name=".gcm.TestActivity"
+			android:screenOrientation="portrait"/>
+	</application>
 
 </manifest>
