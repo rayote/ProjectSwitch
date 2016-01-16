@@ -82,65 +82,6 @@ public class MainActivity extends AppCompatActivity {
 		addedFriend =  getIntent().getParcelableArrayListExtra("added");
 		blockedFriend =  getIntent().getParcelableArrayListExtra("blocked");
 
-		// FIXME:
-//		Toast.makeText(getApplicationContext(), "SharedApplication: " + ((SharedApplication) getApplication()).testStr, Toast.LENGTH_SHORT).show();
-		UserManagement.requestMe(new MeResponseCallback() {
-			@Override
-			public void onFailure(ErrorResult errorResult) {
-				String message = "failed to get user info. msg=" + errorResult;
-				Logger.d(message);
-
-//				redirectLoginActivity();
-			}
-
-			@Override
-			public void onSessionClosed(ErrorResult errorResult) {
-//				redirectLoginActivity();
-			}
-
-			@Override
-			public void onSuccess(UserProfile userProfile) {
-				try {
-//					JSONObject kakaoInfo = new JSONObject();
-//					kakaoInfo.put("kakao_id", userProfile.getId());
-//					kakaoInfo.put("nickname", userProfile.getNickname());
-//					kakaoInfo.put("profile_image", userProfile.getProfileImagePath());
-//					kakaoInfo.put("thumbnail_image", userProfile.getThumbnailImagePath());
-
-					JSONObject jsonObject = new JSONObject();
-					// Set the suffix of server APIs
-					jsonObject.put("op", "/api/v1/signup");
-//					jsonObject.put("selected_min", getIntent().getIntExtra("selectedMin", -1));
-//					jsonObject.put("kakao", kakaoInfo);
-
-					TelephonyManager telManager = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-					String phone = telManager.getLine1Number();
-					if(phone.length() > 10)
-						phone = String.format("%s-%s-%s", phone.substring(0, 3), phone.substring(3, 7), phone.substring(8));
-					jsonObject.put("phone_number", phone);
-
-					String gcmUserToken = "";
-					if(SharedApplication.GCM_UserToken != null)
-						gcmUserToken = SharedApplication.GCM_UserToken;
-					jsonObject.put("gcm_user_token", gcmUserToken);
-
-					// Initial information from Kakao account
-					jsonObject.put("auth_id", userProfile.getId());
-					jsonObject.put("nickname", userProfile.getNickname());
-					jsonObject.put("thumbnail_image", userProfile.getThumbnailImagePath());
-					jsonObject.put("profile_image", userProfile.getProfileImagePath());
-
-					new DataSendTask().execute(jsonObject);
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
-			@Override
-			public void onNotSignedUp() {
-//				showSignup();
-			}
-		});
 
 
 		textUp = (TextView) findViewById(R.id.tvBtnSideTop);

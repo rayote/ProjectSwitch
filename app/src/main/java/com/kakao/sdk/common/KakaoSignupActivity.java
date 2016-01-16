@@ -34,8 +34,10 @@ import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 
+import kkook.team.projectswitch.common.SharedApplication;
 import kkook.team.projectswitch.view.AddFriendActivity;
 import kkook.team.projectswitch.R;
+import kkook.team.projectswitch.view.MainActivity;
 
 /**
  * 유효한 세션이 있다는 검증 후
@@ -103,6 +105,7 @@ public class KakaoSignupActivity extends BaseActivity {
             @Override
             public void onSuccess(UserProfile userProfile) {
                 Logger.d("UserProfile : " + userProfile);
+                SharedApplication.KakaoUserId = Long.toString(userProfile.getId());
                 redirectMainActivity();
             }
 
@@ -114,7 +117,13 @@ public class KakaoSignupActivity extends BaseActivity {
     }
 
     private void redirectMainActivity() {
-        startActivity(new Intent(this, AddFriendActivity.class));
+
+        // TODO: 만약 신규회원이라면 처음 1회만 자동으로 친구추가 화면으로 진행
+        if(true)
+            startActivity(new Intent(this, AddFriendActivity.class));
+        else
+            // TODO: 기존회원이라면 친구추가 화면 스킵
+            startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

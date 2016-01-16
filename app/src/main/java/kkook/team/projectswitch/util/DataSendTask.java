@@ -1,6 +1,9 @@
 package kkook.team.projectswitch.util;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -18,14 +21,23 @@ import kkook.team.projectswitch.common.SharedApplication;
 /**
  * Created by Askai on 2015-12-04.
  */
-public class DataSendTask extends AsyncTask<JSONObject, Integer, Boolean> {
+public class DataSendTask extends AsyncTask<JSONObject, Integer, String> {
 	final String TAG = getClass().getSimpleName();
 	boolean result;
+	Handler handler = null;
+
+	public DataSendTask() {
+		this(null);
+	}
+
+	public DataSendTask(Handler handler) {
+		this.handler = handler;
+	}
 
 	@Override
-	protected Boolean doInBackground(JSONObject... params) {
+	protected String doInBackground(JSONObject... params) {
 		result = false;
-		String request, response;
+		String request, response = null;
 
 		try {
 			String op_api = params[0].get("op").toString();
@@ -47,7 +59,7 @@ public class DataSendTask extends AsyncTask<JSONObject, Integer, Boolean> {
 
 			int resCode = conn.getResponseCode();
 			Log.wtf(TAG, "resCode: " + resCode);
-			if(resCode == HttpURLConnection.HTTP_OK) {
+			if(resCode == SharedApplication.HTTP_OK) {
 				result = true;
 
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -64,11 +76,11 @@ public class DataSendTask extends AsyncTask<JSONObject, Integer, Boolean> {
 				response = new String(byteData);
 				Log.wtf(TAG, "RECEIVED: " + response);
 
-				if(response.length() > 0) {
-					JSONObject jsonObject = new JSONObject(response);
+//				if(response.length() > 0) {
+//					JSONObject jsonObject = new JSONObject(response);
 //					Boolean result = (Boolean) jsonObject.get("result");
 //					String age = (String) jsonObject.get("age");
-				}
+//				}
 			}
 
 			conn.disconnect();
@@ -81,6 +93,18 @@ public class DataSendTask extends AsyncTask<JSONObject, Integer, Boolean> {
 			result = false;
 		}
 
-		return result;
+		return response;
+	}
+
+	@Override
+	protected void onPostExecute(String response) {
+//		super.onPostExecute(aBoolean);
+		if(handler != null) {
+			Bundle b = new Bundle();
+			b.putString("response", response);
+			Message msg = new Message();
+			msg.setData(b);
+			handler.sendMessage(msg);
+		}
 	}
 }
